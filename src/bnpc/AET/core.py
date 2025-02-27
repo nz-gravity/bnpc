@@ -2,7 +2,9 @@ import numpy as np
 from scipy.stats import gamma
 from bnpc.signal.utils import signal_prior_sum
 from .utils import updata_phi_A, determinant
-
+'''
+This file contains the core functions for the algorithm.
+'''
 def dens(lam:np.ndarray, splines:np.ndarray)->np.ndarray:
     '''
     This function is defined to calculate the log of the density of the lambda

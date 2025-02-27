@@ -11,6 +11,9 @@ from core import dens, lpost, psd, tot_psd, loglike,loglike_A, prior_sum, lamb_l
 from bnpc.signal.utils import signal_density, signal_prior_sum
 from scipy.stats import multivariate_normal
 from .utils import updateCov
+'''
+This file contains the functions for updating the lambda vector.
+'''
 
 def sigmaupdate(accept_frac:float, sigma:float)->float:
     if accept_frac < 0.30:

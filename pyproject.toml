@@ -25,7 +25,7 @@ dependencies = [
     "matplotlib",
     "pytest",
     "pandas",
-    "scikit-fda",
+    "scikit-fda==0.8.1",
     "seaborn",
     "bilby"
 ]
@@ -46,10 +46,11 @@ Homepage = "https://github.com/NazeelaAimen/bnpc"
 Source = "https://github.com/NazeelaAimen/bnpc"
 
 [tool.setuptools_scm]
-version_file = "src/bnpc/_version.py"
+write_to = "src/bnpc/_version.py"
 
 [tool.semantic_release]
 version_variable = "src/bnpc/_version.py:__version__"
+
 version_source = "commit"
 commit_version_number = true
 commit_subject = "chore(release): {version}"

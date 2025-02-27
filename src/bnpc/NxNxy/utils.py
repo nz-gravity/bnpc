@@ -31,13 +31,6 @@ def inverse(matrix):
     return np.linalg.pinv(matrix)
 
 
-def updata_phi_A(lam_mat, P):
-    std_lam=np.std(lam_mat, axis=0)
-    std_lam[std_lam==0]=1e-16
-    diag_p_inv = np.diag(inverse(P))#diagonal elements of inverse of P
-    phi = np.sqrt(diag_p_inv) / std_lam
-    return np.diag(phi)
-
 
 def updateCov(lambda_matrix, covObj, i, adapt_start=0, epsilon=1e-10):
     """

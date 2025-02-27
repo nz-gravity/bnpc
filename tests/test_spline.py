@@ -1,8 +1,7 @@
 # bnpc/tests/test.py
 import numpy as np
-import pytest
 
-from logSplines.utils import panelty_mat
+from bnpc.logSplines.utils import panelty_mat
 
 
 def test_panelty_mat_non_singular():

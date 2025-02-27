@@ -4,7 +4,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from .utils import diffMatrix, generate_basis_matrix, panelty_mat
 from .knot_allocation import knot_loc
-
+'''
+This file contains the log Psplines class
+'''
 
 class logPsplines:
     '''

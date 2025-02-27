@@ -2,6 +2,8 @@ import numpy as np
 from bilby.core.prior import Uniform as uniform
 from scipy.stats import norm
 import numbers
+from typing import Union, Tuple
+
 #LISA response to GW
 def response(f:np.ndarray)->np.ndarray:
     f_ref = 299792458  / (4 * 2.5e9)
@@ -16,7 +18,7 @@ def psd_sgwb(omega:np.ndarray,f:np.ndarray)->np.ndarray:
     fact=np.log((3*(h0**2)*resp)/(4*(np.pi**2)*f**3))
     return omega+fact
 
-def power_law(b:float,g:float,f:np.ndarray)->np.ndarray:
+def power_law(b:float, g:float,f:np.ndarray)->np.ndarray:
     #log PSD for power law for SGWB
     y=b+g*np.log(f)
     return y
