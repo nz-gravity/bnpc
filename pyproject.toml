@@ -21,11 +21,11 @@ classifiers = [
 ]
 dependencies = [
     "numpy",
-    "scipy",
+    "scipy==1.14.0",
     "matplotlib",
     "pytest",
     "pandas",
-    "scikit-fda==0.8.1",
+    "scikit-fda @ git+https://github.com/GAA-UAM/scikit-fda.git@develop",
     "seaborn",
     "bilby"
 ]

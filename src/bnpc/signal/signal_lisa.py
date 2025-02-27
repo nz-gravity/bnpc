@@ -1,12 +1,15 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from scipy.stats import norm
+
 from .utils import signal_density
 
-class Signal():
+
+class Signal:
     """
     Signal class
     """
+
     def __init__(self, n, signal_model, f, data):
         """
         Initialize the Signal object
@@ -31,7 +34,7 @@ class Signal():
             g=self.g[0],
             psi=self.psi[0],
             f=f,
-            signal_model=signal_model
+            signal_model=signal_model,
         )
 
     def plot_signal_with_prior(self, f, signal_model, num_samples=200):
@@ -44,7 +47,7 @@ class Signal():
             g=self.g[0],
             psi=self.psi[0],
             f=f,
-            signal_model=signal_model
+            signal_model=signal_model,
         )
 
         b_prior = np.random.uniform(61, 61.5, size=num_samples)
@@ -59,33 +62,35 @@ class Signal():
                 g=g_prior[i],
                 psi=psi_prior[i],
                 f=f,
-                signal_model=signal_model
+                signal_model=signal_model,
             )
             signals.append(s_draw)
 
-        signals = np.exp(np.array(signals))  # shape: (num_samples, len(self.f))
+        signals = np.exp(
+            np.array(signals)
+        )  # shape: (num_samples, len(self.f))
 
         # Some percentile range.
         lower = np.percentile(signals, 2.5, axis=0)
         median = np.percentile(signals, 50.0, axis=0)
         upper = np.percentile(signals, 97.5, axis=0)
 
-
         plt.figure(figsize=(8, 5))
 
-        plt.fill_between(f, lower, upper, color='cyan', alpha=0.2,
-                         label='95% prior region')
+        plt.fill_between(
+            f, lower, upper, color="cyan", alpha=0.2, label="95% prior region"
+        )
 
         # Median prior-based signal
-        plt.plot(f, median, 'r--', label='Prior median signal')
+        plt.plot(f, median, "r--", label="Prior median signal")
 
         # Initial signal
-        plt.plot(f, init_signal, 'k-', label='Initial signal')
+        plt.plot(f, init_signal, "k-", label="Initial signal")
 
-        plt.xlabel('Frequency [Hz]')
-        plt.ylabel('PSD')
-        plt.xscale('log')
-        plt.yscale('log')
+        plt.xlabel("Frequency [Hz]")
+        plt.ylabel("PSD")
+        plt.xscale("log")
+        plt.yscale("log")
         plt.legend()
         plt.grid(True)
         plt.tight_layout()

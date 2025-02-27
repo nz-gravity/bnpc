@@ -1,15 +1,16 @@
 import numpy as np
 
-
-'''
+"""
 This file contains the utility functions used in the MCMC.
-'''
-def get_pdgrm(blocked, A, T, re='T'):
+"""
+
+
+def get_pdgrm(blocked, A, T, re="T"):
     if blocked:
         if A is None:
             return T[0]
         else:
-            if re=='T':
+            if re == "T":
                 return T[0]
             else:
                 return A[0]
@@ -17,19 +18,20 @@ def get_pdgrm(blocked, A, T, re='T'):
         if A is None:
             return T
         else:
-            if re=='T':
+            if re == "T":
                 return T
             else:
                 return A
+
 
 def determinant(matrix, eps=1e-16):
     det_val = np.linalg.det(matrix)
     det_val = max(det_val, eps)
     return np.log(det_val)
 
+
 def inverse(matrix):
     return np.linalg.pinv(matrix)
-
 
 
 def updateCov(lambda_matrix, covObj, i, adapt_start=0, epsilon=1e-10):
@@ -43,12 +45,13 @@ def updateCov(lambda_matrix, covObj, i, adapt_start=0, epsilon=1e-10):
 
     # param_chain[:i+1, :] is all accepted samples up to iteration i
     # rowvar=False means each row is an observation, columns are variables
-    new_cov = np.cov(lambda_matrix[:i + 1, :].T, ddof=1)
+    new_cov = np.cov(lambda_matrix[: i + 1, :].T, ddof=1)
 
     # Add small diagonal term for numerical stability (regularization)
     new_cov += epsilon * np.eye(new_cov.shape[0])
 
     return new_cov
+
 
 def basic_summaries(parameter):
     """
