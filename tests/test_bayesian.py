@@ -1,16 +1,22 @@
 import unittest
+
 import numpy as np
+
 from bnpc.AET.core import (
-    lpost, tot_psd, loglike, loglike_A,
-    prior_sum, lamb_lprior, lamb_A_lprior, phi_lprior, delta_lprior,
-    )
-from bnpc.signal.utils import power_law, b_lprior, glprior, psilprior
-
-
+    delta_lprior,
+    lamb_A_lprior,
+    lamb_lprior,
+    loglike,
+    loglike_A,
+    lpost,
+    phi_lprior,
+    prior_sum,
+    tot_psd,
+)
+from bnpc.signal.utils import b_lprior, glprior, power_law, psilprior
 
 
 class TestCoreFunctions(unittest.TestCase):
-
     def test_lpost(self):
         """
         Test the log posterior combining log-likelihood and log-prior.
@@ -110,8 +116,7 @@ class TestCoreFunctions(unittest.TestCase):
         Test lamb_A_lprior.
         """
         lam_A = np.array([1.0, 1.0])
-        lam_mat = np.array([[0.5, 1.5],
-                            [1.0, 2.0]])  # 2 x 2
+        lam_mat = np.array([[0.5, 1.5], [1.0, 2.0]])  # 2 x 2
         P_A = np.eye(2)  # 2x2 Identity
         k = 2
 
@@ -121,8 +126,8 @@ class TestCoreFunctions(unittest.TestCase):
         # We can't know "expected" exactly without dissecting updata_phi_A.
         # At least check it doesn't return NaN or inf under normal conditions:
         self.assertFalse(np.isnan(val))
-        self.assertNotEqual(val, float('inf'))
-        self.assertNotEqual(val, float('-inf'))
+        self.assertNotEqual(val, float("inf"))
+        self.assertNotEqual(val, float("-inf"))
 
     def test_phi_lprior(self):
         """
@@ -132,6 +137,7 @@ class TestCoreFunctions(unittest.TestCase):
            so logpdf(0.5) = -0.5
         """
         from math import isclose
+
         val = phi_lprior(0.5, 1.0)
         # logpdf for Exp(1) at x=0.5 => -0.5
         self.assertTrue(isclose(val, -0.5, abs_tol=1e-5))
@@ -151,17 +157,17 @@ class TestCoreFunctions(unittest.TestCase):
         => log prior is 0 if b in [61, 61.5], else -inf
         """
         # in-range
-        self.assertNotEqual(b_lprior(61.25), float('-inf'))
+        self.assertNotEqual(b_lprior(61.25), float("-inf"))
         # out-of-range => should be -inf
-        self.assertEqual(b_lprior(60.9), float('-inf'))
+        self.assertEqual(b_lprior(60.9), float("-inf"))
 
     def test_glprior(self):
         """
         g is uniform(-0.68, -0.63).
         => log prior is 0 if g in [-0.68, -0.63], else -inf
         """
-        self.assertNotEqual(glprior(-0.65), float('-inf'))
-        self.assertEqual(glprior(-0.7), float('-inf'))
+        self.assertNotEqual(glprior(-0.65), float("-inf"))
+        self.assertEqual(glprior(-0.7), float("-inf"))
 
     def test_psilprior(self):
         """
@@ -186,5 +192,5 @@ class TestCoreFunctions(unittest.TestCase):
         self.assertTrue(np.allclose(result, expected, atol=1e-5))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

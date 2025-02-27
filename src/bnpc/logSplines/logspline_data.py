@@ -1,6 +1,7 @@
-'''
+"""
 This module contains the data object for the log-spline model.
-'''
+"""
+
 
 class LogSplineData:
     def __init__(
@@ -18,7 +19,7 @@ class LogSplineData:
     ):
         self.data = data
         self.Spar = Spar
-        self.n=n
+        self.n = n
         self.n_knots = n_knots
         self.degree = degree
         self.f = f
