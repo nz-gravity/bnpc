@@ -38,7 +38,7 @@ class logPsplines:
             knots=self.knots, grid_points=self.gridp, degree=dataobj.degree
         )
         self.n_gridpoints, self.n_basis = self.splines.shape
-        self.panelty_mat = panelty_mat(
+        self.P = panelty_mat(
             d=1, knots=self.knots, degree=dataobj.degree
         )
         lam = dataobj.data / np.sum(dataobj.data)

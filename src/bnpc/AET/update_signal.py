@@ -1,5 +1,5 @@
 import numpy as np
-from core import dens, lamb_A_lprior, loglike_A, lpost, prior_sum, psd, tot_psd
+from .core import dens, lamb_A_lprior, loglike_A, lpost, prior_sum, psd, tot_psd
 
 from bnpc.signal.utils import signal_density, signal_prior_sum
 

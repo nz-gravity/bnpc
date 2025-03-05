@@ -3,7 +3,7 @@ from scipy.stats import gamma
 
 from bnpc.signal.utils import signal_prior_sum
 
-from .utils import determinant, updata_phi_A
+from ..utils import determinant, inverse
 
 """
 This file contains the core functions for the algorithm.
@@ -107,6 +107,13 @@ def lamb_lprior(lam: np.ndarray, phi: float, P: np.ndarray, k: int) -> float:
         k * np.log(phi) / 2
         - phi * np.matmul(np.transpose(lam), np.matmul(P, lam)) / 2
     )
+
+def updata_phi_A(lam_mat, P):
+    std_lam = np.std(lam_mat, axis=0)
+    std_lam[std_lam == 0] = 1e-16
+    diag_p_inv = np.diag(inverse(P))  # diagonal elements of inverse of P
+    phi = np.sqrt(diag_p_inv) / std_lam
+    return np.diag(phi)
 
 
 def lamb_A_lprior(

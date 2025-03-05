@@ -7,7 +7,7 @@ from .core import llike_prisum_psd
 from .init_weights import optimize_starting_weights
 from .update_signal import update_signal_param
 from .update_weights import update_lambda
-from .utils import basic_summaries, get_pdgrm
+from ..utils import basic_summaries, get_pdgrm
 
 """
 This file contains the Sampler class which is used to run the MCMC.

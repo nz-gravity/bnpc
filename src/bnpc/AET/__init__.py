@@ -1,1 +1,1 @@
-from .sampler import Sampler
+from .mcmc import mcmc

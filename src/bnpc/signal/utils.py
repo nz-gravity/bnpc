@@ -54,7 +54,7 @@ def b_lprior(b: float) -> float:
     :param b: slope
     :return: log prior
     """
-    return uniform(61, 61.5).ln_prob(b)
+    return uniform(62.5, 63.1).ln_prob(b)
 
 
 def glprior(g: float) -> float:

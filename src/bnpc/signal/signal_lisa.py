@@ -18,14 +18,11 @@ class Signal:
         # For demonstration, let's assume they are already set: self.n, self.signal_model, self.f, self.data, etc.
 
         # Initialize b, g
-        self.b = np.concatenate(([np.log(3.6e26)], np.zeros(n - 1)))
+        self.b = np.concatenate(([np.log(1.9e27)], np.zeros(n - 1)))
         self.g = np.concatenate(([-2 / 3], np.zeros(n - 1)))
+        self.psi = np.zeros(n)
 
-        # Initialize psi if using broken power law
-        if signal_model == 2:
-            self.psi = np.zeros(n)
-        else:
-            self.psi = np.zeros(n)  # or not used, but let's define it
+
 
         # Initialize the signal array
         self.s_s = np.zeros((n, len(data)))  # signal density
@@ -50,13 +47,13 @@ class Signal:
             signal_model=signal_model,
         )
 
-        b_prior = np.random.uniform(61, 61.5, size=num_samples)
+        b_prior = np.random.uniform(62.5, 63.1, size=num_samples)
         g_prior = np.random.uniform(-0.67, -0.65, size=num_samples)
         psi_prior = norm(loc=-4, scale=0.1)
 
         signals = []
         for i in range(num_samples):
-            # compute the signal
+            # Signal PSD
             s_draw = signal_density(
                 b=b_prior[i],
                 g=g_prior[i],
@@ -68,9 +65,9 @@ class Signal:
 
         signals = np.exp(
             np.array(signals)
-        )  # shape: (num_samples, len(self.f))
+        )
 
-        # Some percentile range.
+        # Percentile ranges
         lower = np.percentile(signals, 2.5, axis=0)
         median = np.percentile(signals, 50.0, axis=0)
         upper = np.percentile(signals, 97.5, axis=0)

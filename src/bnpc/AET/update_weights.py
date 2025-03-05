@@ -23,7 +23,7 @@ from .core import (
     psd,
     tot_psd,
 )
-from .utils import updateCov
+from ..utils import updateCov
 
 """
 This file contains the functions for updating the lambda vector.
@@ -180,7 +180,7 @@ def lam_A_loop(self, i: int) -> np.ndarray:
     """
     lam = self.logpsplines_A.lam_mat[i, :]  # initial value
     ftheta = posterior_cal(self, lam=lam, post_i=i)
-    if (self.Uv_am[i] < 0.05) or (i <= 2 * self.k):
+    if (self.logpsplines_A.Uv_am[i] < 0.05) or (i <= 2 * self.k):
         lam_star = multivariate_normal.rvs(
             mean=lam, cov=self.logpsplines_A.Ik, size=1
         )
